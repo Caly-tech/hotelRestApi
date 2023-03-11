@@ -1,0 +1,10 @@
+package main
+
+import (
+	"hotelRestApi/initializer"
+)
+
+func init(){
+	initializer.EnvVariables()
+	initializer.ConnectToDB()
+}
