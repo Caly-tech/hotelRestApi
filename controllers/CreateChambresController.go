@@ -31,7 +31,6 @@ func CreateCategoriesController(c *gin.Context) {
 func ShowChambresController(c *gin.Context) {
 	chambres := []models.Chambres{}
 	initializer.DB.Find(&chambres)
-	// result := initializer.DB.Table("chambres").Select("chambre.* , categories.*").Joins("Join categories on chambres.categories_id=categories.id").Scan(&chambres)
 	c.JSON(200, gin.H{
 		"Chambres": &chambres,
 	})
@@ -75,4 +74,49 @@ func CreateChambresController(c *gin.Context) {
 	})
 	 
 
+}
+
+func ShowIDChambresController(c *gin.Context) {
+	id := c.Param("id")
+
+	chambres := []models.Chambres{}
+	initializer.DB.Find(&chambres, id)
+
+	c.JSON(200, gin.H{
+		"Chambres": &chambres,
+	})
+}
+
+func UpdateChambresController(c *gin.Context) {
+	var bodyChambres struct {
+		EtatChambre string
+		NbreLits int
+		Description string
+		Capacites int 
+		Services string 
+		Surfaces int 
+		CategoriesID uint
+		ReservationChambres[] models.Reservations
+		ImageChambres[] models.Images
+	}
+	c.Bind(&bodyChambres)
+	id := c.Param("id")
+
+	chambres := []models.Chambres{}
+	initializer.DB.Find(&chambres, id)
+	
+	initializer.DB.Model(&chambres).Updates(models.Chambres{
+		EtatChambre:bodyChambres.EtatChambre, 
+		NbreLits:bodyChambres.NbreLits, 
+		Description:bodyChambres.Description, 
+		Capacites:bodyChambres.Capacites, 
+		Services:bodyChambres.Services, 
+		Surfaces:bodyChambres.Surfaces, 
+		CategoriesID:bodyChambres.CategoriesID, 
+		ReservationChambres:bodyChambres.ReservationChambres, 
+		ImageChambres:bodyChambres.ImageChambres})
+
+	c.JSON(200, gin.H{
+		"Chambres": &chambres,
+	})
 }
