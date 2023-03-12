@@ -3,6 +3,7 @@ package main
 // import "fmt"
 
 import (
+	"hotelRestApi/controllers"
 	"hotelRestApi/initializer"
 
 	"github.com/gin-gonic/gin"
@@ -17,10 +18,10 @@ func init(){
 func main() {
 
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Api en cour ...........",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.POST("/createCategories", controllers.CreateCategoriesController) // route pour ajouter une categorie
+	r.GET("/showChambres", controllers.ShowChambresController) // route pour Lister les chambres
+	r.POST("/createChambres", controllers.CreateChambresController) // route pour ajouter une Chambre 
+
+
+	r.Run() // listen and serve on 127.0.0.0:3000
 }
