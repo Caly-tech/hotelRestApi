@@ -1,24 +1,25 @@
-package controllers 
+package controllers
 
 import (
-	"github.com/gin-gonic/gin"
-	"hotelRestApi/models"
 	"hotelRestApi/initializer"
+	"hotelRestApi/models"
+
+	"github.com/gin-gonic/gin"
 )
 
 func CreateClientsController(c *gin.Context) {
 
 	var bodyClients struct {
-		Name string 
-		Prenom string 
-		telephone int
-		ReservationClients[]	models.Reservations
-		FacturationClients[]	models.Facturations
+		Name               string
+		Prenom             string
+		Telephone          int
+		ReservationClients []models.Reservations
+		FacturationClients []models.Facturations
 	}
 
 	c.Bind(&bodyClients)
 
-	newClients := models.Clients{Name:bodyClients.Name,Prenom:bodyClients.Prenom,ReservationClients: bodyClients.ReservationClients,FacturationClients: bodyClients.FacturationClients}
+	newClients := models.Clients{Name: bodyClients.Name, Prenom: bodyClients.Prenom, ReservationClients: bodyClients.ReservationClients, FacturationClients: bodyClients.FacturationClients}
 	clientsResult := initializer.DB.Create(&newClients)
 
 	if clientsResult.Error != nil {

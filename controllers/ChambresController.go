@@ -4,6 +4,7 @@ import(
 	"github.com/gin-gonic/gin"
 	"hotelRestApi/initializer"
 	"hotelRestApi/models"
+	
 )
 
 // function qui permet d'ajouter une categorie au niveau de la base de données
@@ -29,11 +30,17 @@ func CreateCategoriesController(c *gin.Context) {
 
 // function qui permet de lister les chambres au niveau de la base données
 func ShowChambresController(c *gin.Context) {
-	chambres := []models.Chambres{}
-	initializer.DB.Find(&chambres)
+	// chambres := []models.Chambres{}
+	// initializer.DB.Find(&chambres)
+	// c.JSON(200, gin.H{
+	// 	"Chambres": &chambres,
+	// })
+	var chambres models.Chambres
+
+	initializer.DB.Raw("select description, tarifs from chambres inner join categories on chambres.categories_id=categories.id").Find(&chambres)
 	c.JSON(200, gin.H{
-		"Chambres": &chambres,
-	})
+		"Chambres": chambres,
+	 })
 }
 
 // la fonction qui permet d'ajouter une chambre au niveau de la base de données

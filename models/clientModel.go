@@ -9,60 +9,56 @@ import (
 // table Clients
 type Clients struct {
 	gorm.Model
-	Name string 
-	Prenom string 
-	telephone int
+	Name               string
+	Prenom             string
+	Telephone          int
 	ReservationClients []Reservations
 	FacturationClients []Facturations
 }
 
-// table categories 
+// table categories
 type Categories struct {
 	gorm.Model
-	NomCategorie string
-	Tarifs int
+	NomCategorie       string
+	Tarifs             int
 	ChambresCategories []Chambres
 }
 
-// table Chambres 
+// table Chambres
 type Chambres struct {
 	gorm.Model
-	EtatChambre string
-	NbreLits int 
-	Description string 
-	Capacites int
-	Services string 
-	Surfaces int 
-	CategoriesID uint
+	EtatChambre         string
+	NbreLits            int
+	Description         string
+	Capacites           int
+	Services            string
+	Surfaces            int
+	CategoriesID        uint
 	ReservationChambres []Reservations
-	ImageChambres []Images
+	ImageChambres       []Images
 }
 
-// table Reservation 
+// table Reservation
 type Reservations struct {
 	gorm.Model
 	DateDentrer time.Time
-	DateSortie time.Time
-	Nuite int
-	ClientsID uint
-	ChambresID uint
+	DateSortie  time.Time
+	Nuite       int
+	ClientsID   uint
+	ChambresID  uint
 }
 
-// table Facturation 
+// table Facturation
 type Facturations struct {
 	gorm.Model
-	Date time.Time
+	Date      time.Time
 	ClientsID uint
 }
 
-// table images 
+// table images
 
 type Images struct {
 	gorm.Model
-	NomImages string
+	NomImages  string
 	ChambresID uint
 }
-
-
-
-
