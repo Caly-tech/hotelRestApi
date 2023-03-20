@@ -20,16 +20,24 @@ func main() {
 	r := gin.Default()
 
 	/* les routes concernant les chambres et leurs categories */
-	r.POST("/createCategories", controllers.CreateCategoriesController) // route pour ajouter une categorie
-	r.POST("/createChambres", controllers.CreateChambresController) // route pour ajouter une Chambre 
-	r.GET("/showChambres", controllers.ShowChambresController) // route pour Lister les chambres
-	r.GET("/showChambres/:id", controllers.ShowIDChambresController) //route pour lister une chambre en fonction de son id 
-	r.PUT("/showChambres/:id", controllers.UpdateChambresController)// route pour modifier les informations d'une chambre
+	r.POST("/createCategories", controllers.CreateCategoriesController) 
+	r.GET("/showCategories", controllers.ShowCategoriesController)	
+	r.POST("/createChambres", controllers.CreateChambresController) 
+	r.GET("/showChambres", controllers.ShowChambresController) 
+	r.GET("/showChambres/:id", controllers.ShowIDChambresController) 
+	r.PUT("/updateChambres/:id", controllers.UpdateChambresController)
 
 	/* les routes concernant les clients */
-	r.POST("/createClients", controllers.CreateClientsController) // route pour ajouter un client
-	r.GET("/showClients", controllers.ShowClientsController) // route pour Lister les clients
-	r.GET("/showClients/:id", controllers.ShowIDClientsController) //route pour lister un client en fonction de son id 
+	r.POST("/createClients", controllers.CreateClientsController) 
+	r.GET("/showClients", controllers.ShowClientsController) 
+	r.GET("/showClients/:id", controllers.ShowIDClientsController) 
+	r.PUT("/updateClients/:id", controllers.UpdateClientsController)
+
+	/* les routes concernant les clients */
+	r.POST("/createReservation", controllers.CreateReservationsController)
+	r.GET("/showReservations", controllers.ShowReservationsController)  
+	r.GET("/showReservations/:id", controllers.ShowIDReservationsController)
+	r.PUT("/updateReservations/:id", controllers.UpdateReservationsController)
 
 	r.Run() // listen and serve on 127.0.0.0:3000
 }
