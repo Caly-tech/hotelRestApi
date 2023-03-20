@@ -7,6 +7,15 @@ import(
 	
 )
 
+// function qui permet de lister les categories au niveau de la base données
+func ShowCategoriesController(c *gin.Context) {
+	categories := []models.Categories{}
+	 initializer.DB.Find(&categories)
+	 c.JSON(200, gin.H{
+	 	"categories": &categories,
+	 })
+}
+
 // function qui permet d'ajouter une categorie au niveau de la base de données
 func CreateCategoriesController(c *gin.Context) {
 	var bodyCat struct {
@@ -36,8 +45,9 @@ func ShowChambresController(c *gin.Context) {
 	// 	"Chambres": &chambres,
 	// })
 	var chambres models.Chambres
+	var categories models.Categories
 
-	initializer.DB.Raw("select description, tarifs from chambres inner join categories on chambres.categories_id=categories.id").Find(&chambres)
+	initializer.DB.Raw("select chambres.*, categories.* from chambres inner join categories on chambres.categories_id=categories.id").Find(&chambres, &categories)
 	c.JSON(200, gin.H{
 		"Chambres": chambres,
 	 })

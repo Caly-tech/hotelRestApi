@@ -50,3 +50,28 @@ func ShowIDClientsController(c *gin.Context) {
 		"Chambres": &clients,
 	})
 }
+
+
+func UpdateClientsController(c *gin.Context) {
+
+	var bodyClients struct {
+		Name               string
+		Prenom             string
+		Telephone          int
+		ReservationClients []models.Reservations
+		FacturationClients []models.Facturations
+	}
+
+	c.Bind(&bodyClients)
+	id := c.Param("id")
+
+	clients := []models.Clients{}
+	initializer.DB.Find(&clients, id)
+
+	initializer.DB.Model(&clients).Updates(models.Clients{Name: bodyClients.Name, Prenom: bodyClients.Prenom, Telephone: bodyClients.Telephone, ReservationClients: bodyClients.ReservationClients, FacturationClients: bodyClients.FacturationClients})
+
+	c.JSON(200, gin.H{
+		"Client": &clients,
+	})
+
+}
