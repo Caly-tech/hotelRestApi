@@ -19,7 +19,7 @@ func CreateClientsController(c *gin.Context) {
 
 	c.Bind(&bodyClients)
 
-	newClients := models.Clients{Name: bodyClients.Name, Prenom: bodyClients.Prenom, ReservationClients: bodyClients.ReservationClients, FacturationClients: bodyClients.FacturationClients}
+	newClients := models.Clients{Name: bodyClients.Name, Prenom: bodyClients.Prenom, Telephone: bodyClients.Telephone, ReservationClients: bodyClients.ReservationClients, FacturationClients: bodyClients.FacturationClients}
 	clientsResult := initializer.DB.Create(&newClients)
 
 	if clientsResult.Error != nil {
